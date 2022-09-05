@@ -1,0 +1,20 @@
+version: "3"
+services:
+  app:
+    # 컨테이너 이름
+    container_name: docker-node-mongo
+    # 컨테이너가 실행 중 중단됐을 때 컨테이너를 다시 알아서 재시작
+    restart: always
+    # Dockerfile이 있는 위치
+    build: .
+    # <내부에서 개방할 포트>:<외부에서 접근할 포트>
+    ports:
+      - "3000:3000"
+    # 컨테이너를 compose 파일 외부에 있는 서비스와 연결
+    external_links:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - "27017:27017"
